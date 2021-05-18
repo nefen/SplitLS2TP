@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Parse_Split_LS.Models
+namespace SplitLS2TP.Models
 {
     public enum lsSection
     {

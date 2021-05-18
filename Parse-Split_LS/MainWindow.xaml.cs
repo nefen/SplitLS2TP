@@ -1,4 +1,4 @@
-﻿using Parse_Split_LS.Models;
+﻿using SplitLS2TP.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -18,7 +18,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Parse_Split_LS
+namespace SplitLS2TP
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

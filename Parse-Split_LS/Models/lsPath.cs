@@ -9,7 +9,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace Parse_Split_LS.Models
+namespace SplitLS2TP.Models
 {
     public class lsPath
     {
@@ -549,7 +549,7 @@ namespace Parse_Split_LS.Models
 
         bool ZinClearLevel(int Line, double _clearZLevel)
         {
-            int j;
+            //int j;
             LsPathStep resultStep;
             lsPathPoint resultPoint;
             if (!dctSteps.TryGetValue(Line, out resultStep))

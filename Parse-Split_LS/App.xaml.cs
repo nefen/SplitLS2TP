@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace Parse_Split_LS
+namespace SplitLS2TP
 {
     /// <summary>
     /// Interaction logic for App.xaml

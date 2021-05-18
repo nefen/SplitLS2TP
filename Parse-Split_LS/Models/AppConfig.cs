@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 
-namespace Parse_Split_LS.Models
+namespace SplitLS2TP.Models
 {
     public static class AppConfig
     {
@@ -37,7 +37,7 @@ namespace Parse_Split_LS.Models
         public static int ReadConfigFile()
         {
 
-            DirectoryInfo di;
+            //DirectoryInfo di;
 
             //   OutputBaseFilaname = outputBaseFilaname;
             if (Directory.Exists(appDataFolder))
