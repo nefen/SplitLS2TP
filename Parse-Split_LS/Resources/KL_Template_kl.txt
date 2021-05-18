@@ -1,0 +1,96 @@
+PROGRAM RunSplitFiles
+	
+VAR 
+	Status					:INTEGER
+	prog_index				:INTEGER
+		ToolNumber: INTEGER
+		SpeedRPM:	INTEGER
+		CallProgName: STRING[20]
+	RetValueBool:BOOLEAN
+		
+
+-- Runs a TP Program
+ROUTINE runTP(FromDir,ProgName:STRING): INTEGER
+	VAR 
+		FromFullPathName :STRING[50]
+		ToFullPathName :STRING[50]
+		
+	BEGIN
+		
+		Status=0
+		prog_index=0
+		
+		FromFullPathName=FromDir+ProgName+'.TP'
+		ToFullPathName='MD:\'+ProgName+'.TP'
+		WRITE TPDISPLAY (CR)		
+		WRITE TPDISPLAY (CR)
+		WRITE TPDISPLAY(' ',FromFullPathName,ToFullPathName,CR)
+
+		COPY_FILE (FromFullPathName,ToFullPathName,TRUE,FALSE,status)
+		IF status <> 0 THEN	-- copy failed
+			WRITE TPDISPLAY ('Copy OF ', FromFullPathName,  'failed....',CR)
+			WRITE(CR)
+			RETURN (1)
+		ELSE
+			WRITE TPDISPLAY ('Copy OF ', FromFullPathName,  'succeeded....',CR)
+		ENDIF
+		CALL_PROG(ProgName,prog_index)
+		WRITE TPDISPLAY ('Execution OF ',ProgName, '  ended....')
+
+		DELETE_FILE(ToFullPathName,FALSE,status)
+		IF status <> 0 THEN	-- copy failed
+			RETURN(1)
+		ENDIF
+		
+		RETURN(0)
+	END runTP
+	
+ROUTINE ToolChange(tool:INTEGER):BOOLEAN
+	BEGIN
+		SET_INT_REG(1,tool,status)
+		IF status<>0 THEN --set register ERROR
+			WRITE ('ERROR setting register')
+			RETURN (FALSE)
+		ENDIF
+		CALL_PROG('_TLCHK',prog_index)
+		--GET_REG(
+		RETURN (TRUE)
+
+	END ToolChange
+	
+ROUTINE CoolantSpindle(Coolant, Spindle:BOOLEAN;RPM:INTEGER)
+	BEGIN
+		IF coolant THEN
+			CALL_PROG('_COOLON',prog_index)
+		ELSE
+			CALL_PROG('_COOLOFF',prog_index)
+		ENDIF
+		IF Spindle THEN
+			SET_INT_REG(1,RPM,status)
+			CALL_PROG('_SPONK',prog_index)
+		ELSE
+			CALL_PROG('_SPOFF',prog_index)
+		ENDIF		
+	END	CoolantSpindle
+	
+ROUTINE MoveSafe(ZSafeLevel,DegreesToGo:INTEGER):BOOLEAN
+	BEGIN
+		SET_INT_REG(60,ZSafeLevel,status) 
+		IF status<>0 THEN 
+			WRITE TPDISPLAY ('ERROR setting register 60 for Z safe Level',CR)
+			RETURN (FALSE)
+		ENDIF		
+		SET_INT_REG(61,DegreesToGo,status)  
+		IF status<>0 THEN 
+			WRITE TPDISPLAY ('ERROR setting register 61 for Degrees',CR)
+			RETURN (FALSE)
+		ENDIF
+		CALL_PROG('_SAFEMOVK',prog_index)
+		RETURN (TRUE)
+
+	END MoveSafe
+
+-- Main Program	
+BEGIN
+	-- Initialize registers
+	CALL_PROG('_SETPR',prog_index)

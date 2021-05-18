@@ -1,0 +1,70 @@
+﻿<Window x:Class="Parse_Split_LS.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Parse_Split_LS"
+        mc:Ignorable="d"
+        Title="Prepare LS Files for FANUC Controller (split files, compile, create autoloader).  EFentakis Consulting and Engineering (EF.C.E) 2019®" Height="900" Width="792">
+    <DockPanel Margin="10" >
+        <Grid DockPanel.Dock="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <WrapPanel HorizontalAlignment="Left" DockPanel.Dock="Top" Margin="0,0,0,10" Grid.Row="0">
+                <Button Name="btnOpenFile" Click="btnOpenFile_Click" Margin="20,0,0,0" MinWidth="180">Select WinOLPC folder</Button>
+                <TextBlock Name="txbMaketpPath" MinWidth="300" Margin="20,0,0,0" Background="#FFCDE3F0" VerticalAlignment="Center"></TextBlock>
+            </WrapPanel>
+            <WrapPanel HorizontalAlignment="Left" DockPanel.Dock="Top" Margin="0,0,0,10" Grid.Row="1">
+                <Button Name="btnSelectLS"  Margin="20,0,0,0" MinWidth="180" Background="#FFE29494" Click="btnSelectLS_Click">Select .LS File</Button>
+                <TextBlock Name="txbLsPath" MinWidth="300" Margin="20,0,0,0" Background="#FFCDE3F0" VerticalAlignment="Center"></TextBlock>
+            </WrapPanel>
+            <WrapPanel HorizontalAlignment="Left" DockPanel.Dock="Top" Margin="0,0,0,10" Grid.Row="2">
+                <Button Name="btnOutputFolder" Margin="20,0,0,0" MinWidth="180" Click="btnOutputFolder_Click">Select Output folder</Button>
+                <TextBlock Name="txbOutputFolder" MinWidth="300" Margin="20,0,0,0" Background="#FFCDE3F0" VerticalAlignment="Center"></TextBlock>
+            </WrapPanel>
+            <Image Grid.Column="1" Grid.RowSpan="3" Source="Logo-Full.tif" Margin="20,10,10,10"/>
+        </Grid>
+        <WrapPanel HorizontalAlignment="Left" DockPanel.Dock="Top" Margin="0,0,0,10">
+            <TextBlock Margin="20,0,0,0" MinWidth="180" VerticalAlignment="Center">Select FANUC Device</TextBlock>
+            <ComboBox Name="cmbFanucDevice" Margin="20,0,0,0" MinWidth="180"  VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center">
+                <ComboBoxItem>UD1</ComboBoxItem>
+                <ComboBoxItem>UD2</ComboBoxItem>
+                <ComboBoxItem>UT1</ComboBoxItem>
+            </ComboBox>
+            <TextBlock TextWrapping="Wrap" Margin="140,0,0,0" MinWidth="180"  Width="216" Text="Split Files will have this name and an '_' and a four digit serial (i.e. _0000, _0001 etc)"/>
+        </WrapPanel>
+        <WrapPanel HorizontalAlignment="Left" DockPanel.Dock="Top" Margin="0,0,0,10">
+            <TextBlock Margin="20,0,0,0" MinWidth="180" VerticalAlignment="Center">Split Files Subfolder Name</TextBlock>
+            <TextBox Name="txbSubFolderName" MinWidth="300" Margin="20,0,0,0" Background="#FFCDE3F0" VerticalAlignment="Center"></TextBox>
+            <TextBlock TextWrapping="Wrap" Margin="20,0,0,0" MinWidth="180"  Width="218"><Run Text="Subfolder Created under Output folder with all compiled executables (*.TP/PC). This folder should be copied to the root of the used FANUC storage device (UD1 or UD2 or UT1)"/><LineBreak/><Run/></TextBlock>
+        </WrapPanel>
+        <WrapPanel HorizontalAlignment="Left" DockPanel.Dock="Top" Margin="0,0,0,10">
+            <TextBlock Margin="20,0,0,0" MinWidth="180" VerticalAlignment="Center">SplitFileName</TextBlock>
+            <TextBox Name="txtSplitFileName"  MinWidth="300" Margin="20,0,0,0" Background="#FFCDE3F0" VerticalAlignment="Center"></TextBox>
+            <TextBlock TextWrapping="Wrap" Margin="20,0,0,0" MinWidth="180"  Width="216" Text="Split Files will have this name and an '_' and a four digit serial (i.e. _0000, _0001 etc)"/>
+        </WrapPanel>
+        <WrapPanel HorizontalAlignment="Left" DockPanel.Dock="Top" Margin="0,0,0,10">
+            <TextBlock Margin="20,0,0,0" MinWidth="180" VerticalAlignment="Center">Lines Per Split File</TextBlock>
+            <TextBox  Name="txtLinesPerSplitFile" MinWidth="300" Margin="20,0,0,0" Background="#FFCDE3F0" VerticalAlignment="Center"></TextBox>
+            <TextBlock TextWrapping="Wrap" Margin="20,0,0,0" MinWidth="180" Height="31" Width="216"><Run Text="Default 7250. For translated tp files to fit into controller memory."/></TextBlock>
+        </WrapPanel>
+        <WrapPanel HorizontalAlignment="Left" DockPanel.Dock="Top" Margin="0,0,0,10">
+            <TextBlock Margin="20,0,0,0" MinWidth="180" VerticalAlignment="Center">Clear Z level</TextBlock>
+            <TextBox Name="txtClearZLevel" MinWidth="300" Margin="20,0,0,0" Background="#FFCDE3F0" VerticalAlignment="Center"></TextBox>
+            <TextBlock TextWrapping="Wrap" Margin="20,0,0,0" MinWidth="180" Width="216"><Run Text="A minimum level that tool do not touch workpiece. If possible different files will be split while tool above this level."/></TextBlock>
+        </WrapPanel>
+
+        <WrapPanel HorizontalAlignment="Center" DockPanel.Dock="Top" Margin="0,0,0,10">
+            <Button Name="btnSplitFile"  MinWidth="180" Click="btnSplitFile_Click" >Split LS Folder</Button>
+            <CheckBox Margin="20,0,0,0" Name="cbRunBat">Run .bat</CheckBox>
+        </WrapPanel>
+        <TextBox Name="txtEditor" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="0,0,0,10" />
+    </DockPanel>
+</Window>
