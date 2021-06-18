@@ -22,7 +22,7 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <PublishUrl>g:\Transfer\DASYC\splitfilesprogram\</PublishUrl>
+    <PublishUrl>D:\tmp\SplitLS2TP\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -32,7 +32,9 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>11</ApplicationRevision>
+    <ProductName>SplitLS2TP</ProductName>
+    <PublisherName>Efentakis Consulting &amp; Engineering - efce</PublisherName>
+    <ApplicationRevision>13</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -57,6 +59,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <NoWarn>CA1303;CA1031;CA1806;CA1062;CA1305;CA3075;CA1051;CA1815;CA2211</NoWarn>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>D16E5388FB5B0D5779818107327E1BDE18BE3131</ManifestCertificateThumbprint>
@@ -75,6 +78,9 @@
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>logo.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <NoWin32Manifest>true</NoWin32Manifest>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />

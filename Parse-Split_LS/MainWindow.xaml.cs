@@ -91,7 +91,7 @@ namespace SplitLS2TP
         {
             using (FolderBrowserDialog openFolderDialog = new FolderBrowserDialog())
             {
-                openFolderDialog.Description = "FANUC OLPC Folder (ktrans.exe, maketp.exe, robot.ini).";
+                openFolderDialog.Description = "Select the folder on the USB stick that will be mounted to Fanuc Controller.";
                 openFolderDialog.ShowNewFolderButton = false;
                 openFolderDialog.RootFolder = Environment.SpecialFolder.MyComputer;
                 openFolderDialog.SelectedPath = txbOutputFolder.Text;
